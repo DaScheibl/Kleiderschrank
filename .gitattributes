@@ -1,0 +1,4 @@
+# Einheitliche Zeilenenden, damit Prettier unter Windows nach dem Klonen nicht anschlägt.
+* text=auto eol=lf
+*.png binary
+*.jpg binary

@@ -41,3 +41,13 @@ example
 # generated native folders
 /ios
 /android
+
+# Geheimnisse – echte Schlüssel nie einchecken
+.env
+.env.*
+!.env.example
+supabase/functions/.env
+
+# lokale Datenbanken
+*.db
+

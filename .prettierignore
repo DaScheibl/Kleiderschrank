@@ -1,0 +1,9 @@
+node_modules
+.expo
+dist
+package-lock.json
+src/data/db/migrations
+supabase/.temp
+supabase/config.toml
+docs
+assets
