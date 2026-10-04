@@ -129,6 +129,14 @@ EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
 
 Speichern. `.env` wird nie eingecheckt (steht in `.gitignore`).
 
+### 3.4 Anonyme Anmeldung einschalten
+
+Die App legt beim ersten Start still eine anonyme Sitzung an (Entscheidung E1). So
+funktioniert sie ohne Registrierung, und der Server kann trotzdem Limits durchsetzen.
+
+Im Dashboard: **Authentication → Sign In / Providers** → **Allow anonymous sign-ins**
+einschalten → **Save**.
+
 ---
 
 ## Teil 4 – Datenbank, Bucket und Edge Functions
@@ -248,14 +256,15 @@ Netzwerke** erlauben.
 
 ## Nützliche Befehle
 
-| Befehl                | Zweck                                                                    |
-| --------------------- | ------------------------------------------------------------------------ |
-| `npm start`           | Entwicklungsserver mit QR-Code                                           |
-| `npm run check`       | Typen, Lint, Format, Tests und SQL-Tests in einem                        |
-| `npm run test`        | Unit-Tests der Fachlogik                                                 |
-| `npm run test:sql`    | alle SQL-Skripte zweimal gegen ein lokales Postgres + Sicherheitstests   |
-| `npm run format`      | Code formatieren                                                         |
-| `npm run db:generate` | nach Änderungen an `src/data/db/schema.ts` die lokale Migration erzeugen |
+| Befehl                  | Zweck                                                                                  |
+| ----------------------- | -------------------------------------------------------------------------------------- |
+| `npm start`             | Entwicklungsserver mit QR-Code                                                         |
+| `npm run check`         | Typen, Lint, Format, Tests und SQL-Tests in einem                                      |
+| `npm run test`          | Unit-Tests der Fachlogik                                                               |
+| `npm run test:sql`      | alle SQL-Skripte zweimal gegen ein lokales Postgres + Sicherheitstests                 |
+| `npm run test:supabase` | Sync gegen das echte Supabase-Projekt (legt einen Testnutzer an und löscht ihn wieder) |
+| `npm run format`        | Code formatieren                                                                       |
+| `npm run db:generate`   | nach Änderungen an `src/data/db/schema.ts` die lokale Migration erzeugen               |
 
 ## Ab wann Expo Go nicht mehr reicht
 
