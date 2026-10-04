@@ -4,6 +4,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useSyncExternalStore } from 'react';
 import { Text, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { activeDatabaseFile, getDb, setDatabaseReady, subscribeDatabase } from '@/data/db/client';
 import migrations from '@/data/db/migrations/migrations';
@@ -17,7 +18,11 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   // Beim Kontowechsel kann eine andere Schrank-Datei aktiv werden; dann baut sich alles neu auf.
   const datei = useSyncExternalStore(subscribeDatabase, activeDatabaseFile);
-  return <Schrank key={datei} datei={datei} />;
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Schrank key={datei} datei={datei} />
+    </GestureHandlerRootView>
+  );
 }
 
 function Schrank({ datei }: { datei: string }) {
