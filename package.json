@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
+    "@supabase/supabase-js": "^2.117.2",
     "drizzle-orm": "^0.45.3",
     "eslint-config-expo": "~57.0.2",
     "expo": "~57.0.26",
@@ -13,6 +14,7 @@
     "expo-image": "~57.0.5",
     "expo-linking": "~57.0.11",
     "expo-router": "~57.0.24",
+    "expo-secure-store": "~57.0.4",
     "expo-splash-screen": "~57.0.9",
     "expo-sqlite": "~57.0.3",
     "expo-status-bar": "~57.0.1",
@@ -54,6 +56,7 @@
     "test:watch": "vitest",
     "db:generate": "drizzle-kit generate",
     "check": "npm run typecheck && npm run lint && npm run format:check && npm run test && npm run test:sql",
-    "test:sql": "node supabase/tests/schema.test.mjs"
+    "test:sql": "node supabase/tests/schema.test.mjs",
+    "test:supabase": "vitest run --config vitest.supabase.config.mts"
   }
 }
