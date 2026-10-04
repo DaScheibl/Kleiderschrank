@@ -1,4 +1,4 @@
-import { and, desc, eq } from 'drizzle-orm';
+import { and, desc, eq, inArray } from 'drizzle-orm';
 import { randomUUID } from 'expo-crypto';
 
 import {
@@ -6,7 +6,8 @@ import {
   type AnlegenErgebnis,
   type NeuesTeilEingabe,
 } from '@/domain/kleidungsstueck/anlegen';
-import type { Kleidungsstueck } from '@/domain/modell/typen';
+import type { Kleidungsstueck, Uuid, Waeschestatus } from '@/domain/modell/typen';
+import { setzeWaeschestatus } from '@/domain/waesche/waescheregel';
 
 import { db } from '../db/client';
 import { kleidungsstueck, type KleidungsstueckZeile } from '../db/schema';
@@ -31,4 +32,42 @@ export function activeGarmentsQuery() {
     .from(kleidungsstueck)
     .where(and(eq(kleidungsstueck.geloescht, false), eq(kleidungsstueck.status, 'aktiv')))
     .orderBy(desc(kleidungsstueck.angelegtAm));
+}
+
+export function garmentQuery(id: Uuid) {
+  return db.select().from(kleidungsstueck).where(eq(kleidungsstueck.id, id)).limit(1);
+}
+
+export function garmentsByLaundryStatusQuery(status: Waeschestatus) {
+  return db
+    .select()
+    .from(kleidungsstueck)
+    .where(
+      and(
+        eq(kleidungsstueck.geloescht, false),
+        eq(kleidungsstueck.status, 'aktiv'),
+        eq(kleidungsstueck.waeschestatus, status),
+      ),
+    )
+    .orderBy(kleidungsstueck.kategorie, kleidungsstueck.name);
+}
+
+/** Setzt den Wäschestatus mehrerer Teile in einer Transaktion. */
+export function setLaundryStatus(ids: readonly Uuid[], ziel: Waeschestatus): void {
+  if (ids.length === 0) return;
+  const jetzt = new Date().toISOString();
+  db.transaction((tx) => {
+    const rows = tx
+      .select()
+      .from(kleidungsstueck)
+      .where(inArray(kleidungsstueck.id, [...ids]))
+      .all();
+    for (const row of rows) {
+      const aenderung = setzeWaeschestatus(toDomain(row), ziel, jetzt);
+      tx.update(kleidungsstueck)
+        .set({ ...aenderung, zuletztGeaendert: jetzt, syncOffen: true })
+        .where(eq(kleidungsstueck.id, row.id))
+        .run();
+    }
+  });
 }
