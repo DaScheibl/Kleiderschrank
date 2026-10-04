@@ -13,6 +13,7 @@ export default function EinstellungenLayout() {
       <Stack.Screen name="index" options={{ title: 'Einstellungen' }} />
       <Stack.Screen name="waescheschwellen" options={{ title: 'Wäscheschwellen' }} />
       <Stack.Screen name="sync" options={{ title: 'Konto & Abgleich' }} />
+      <Stack.Screen name="anmelden" options={{ title: 'Konto', presentation: 'modal' }} />
     </Stack>
   );
 }

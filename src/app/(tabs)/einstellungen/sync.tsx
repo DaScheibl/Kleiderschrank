@@ -1,9 +1,12 @@
+import { router } from 'expo-router';
 import { useSyncExternalStore } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 
 import { onLocalChange } from '@/data/changes';
 import { pendingCount } from '@/data/sync/local-store';
 import { useSyncState } from '@/hooks/use-sync';
+import { deleteAccount, signOut } from '@/services/account';
+import { exportData } from '@/services/export';
 import { syncNow, type SyncStatus } from '@/services/sync/sync-service';
 import { Button } from '@/ui/components/button';
 import { Placeholder, Screen } from '@/ui/components/screen';
@@ -34,7 +37,7 @@ function statusText(s: SyncStatus): string {
 
 export default function SyncScreen() {
   const { colors } = useTheme();
-  const { status, kontoId, istAnonym } = useSyncState();
+  const { status, kontoId, istAnonym, email } = useSyncState();
   // Wird bei jeder lokalen Änderung und bei jedem Statuswechsel neu gezählt.
   const offen = useSyncExternalStore(onLocalChange, pendingCount);
 
@@ -55,8 +58,8 @@ export default function SyncScreen() {
         <Text style={{ color: colors.text, fontSize: fontSize.body }}>
           {kontoId
             ? istAnonym
-              ? 'Ohne Anmeldung (anonym). Mit einer E-Mail-Adresse wird daraus später ein Konto – ohne Datenverlust.'
-              : 'Angemeldet.'
+              ? 'Ohne Anmeldung. Sichere deinen Schrank mit deiner E-Mail-Adresse, um ihn auf weiteren Geräten zu nutzen.'
+              : `Angemeldet als ${email ?? '–'}`
             : 'Noch keine Verbindung zum Server.'}
         </Text>
         {kontoId ? (
@@ -71,8 +74,72 @@ export default function SyncScreen() {
         onPress={() => void syncNow()}
         disabled={status.art === 'laeuft' || status.art === 'nicht_eingerichtet'}
       />
+      {kontoId && istAnonym ? (
+        <Button
+          label="Mit E-Mail sichern oder anmelden"
+          variant="secondary"
+          onPress={() => router.push('/einstellungen/anmelden')}
+        />
+      ) : null}
+      {kontoId && !istAnonym ? (
+        <Button label="Abmelden" variant="secondary" onPress={abmelden} />
+      ) : null}
+      <Button label="Meine Daten exportieren" variant="secondary" onPress={exportieren} />
+      {kontoId ? (
+        <Button label="Konto löschen" variant="secondary" onPress={kontoLoeschen} />
+      ) : null}
+
       <Placeholder text="Abgleich geschieht automatisch beim Öffnen, nach Änderungen und alle zwei Minuten. Fotos folgen mit Block C1. Bis zum Abo-Block wird für alle abgeglichen." />
     </Screen>
+  );
+}
+
+function abmelden() {
+  Alert.alert(
+    'Abmelden?',
+    'Dein Schrank bleibt auf diesem Gerät gespeichert und ist wieder da, sobald du dich mit derselben Adresse anmeldest. Bis dahin startest du mit einem leeren Schrank.',
+    [
+      { text: 'Abbrechen', style: 'cancel' },
+      { text: 'Abmelden', onPress: () => void signOut() },
+    ],
+  );
+}
+
+async function exportieren() {
+  try {
+    await exportData();
+  } catch {
+    Alert.alert('Export fehlgeschlagen', 'Die Datei konnte nicht erstellt werden.');
+  }
+}
+
+function kontoLoeschen() {
+  Alert.alert(
+    'Konto löschen?',
+    'Gelöscht werden dein Konto und alle Daten auf dem Server, außerdem dein Schrank auf diesem Gerät. Das lässt sich nicht rückgängig machen. Exportiere vorher deine Daten, wenn du sie behalten möchtest.',
+    [
+      { text: 'Abbrechen', style: 'cancel' },
+      { text: 'Erst exportieren', onPress: () => void exportieren() },
+      {
+        text: 'Weiter',
+        style: 'destructive',
+        onPress: () =>
+          Alert.alert('Wirklich endgültig löschen?', 'Letzte Rückfrage.', [
+            { text: 'Abbrechen', style: 'cancel' },
+            {
+              text: 'Endgültig löschen',
+              style: 'destructive',
+              onPress: async () => {
+                const r = await deleteAccount();
+                Alert.alert(
+                  r.ok ? 'Konto gelöscht' : 'Nicht gelöscht',
+                  r.ok ? 'Dein Konto und alle Daten wurden gelöscht.' : r.meldung,
+                );
+              },
+            },
+          ]),
+      },
+    ],
   );
 }
 
