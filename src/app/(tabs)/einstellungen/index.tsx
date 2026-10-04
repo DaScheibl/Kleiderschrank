@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import { Link, type Href } from 'expo-router';
+import { router, type Href } from 'expo-router';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
 import { Placeholder, Screen } from '@/ui/components/screen';
@@ -23,16 +23,16 @@ export default function EinstellungenScreen() {
 function Eintrag({ href, label }: { href: Href; label: string }) {
   const { colors } = useTheme();
   return (
-    <Link href={href} asChild>
-      <Pressable
-        style={[
-          styles.eintrag,
-          { backgroundColor: colors.surfaceRaised, borderColor: colors.border },
-        ]}>
-        <Text style={{ color: colors.text, fontSize: fontSize.bodyLarge }}>{label}</Text>
-        <Text style={{ color: colors.textMuted }}>›</Text>
-      </Pressable>
-    </Link>
+    <Pressable
+      accessibilityRole="link"
+      onPress={() => router.push(href)}
+      style={[
+        styles.eintrag,
+        { backgroundColor: colors.surfaceRaised, borderColor: colors.border },
+      ]}>
+      <Text style={{ color: colors.text, fontSize: fontSize.bodyLarge }}>{label}</Text>
+      <Text style={{ color: colors.textMuted }}>›</Text>
+    </Pressable>
   );
 }
 

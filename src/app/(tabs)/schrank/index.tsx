@@ -1,4 +1,4 @@
-import { Link, Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { KATEGORIE_NAMEN, WAESCHESTATUS_NAMEN } from '@/domain/modell/konstanten';
@@ -16,13 +16,12 @@ export default function SchrankScreen() {
       <Stack.Screen
         options={{
           headerRight: () => (
-            <Link href="/schrank/neu" asChild>
-              <Pressable accessibilityRole="button" hitSlop={12}>
-                <Text style={{ color: colors.accent, fontSize: fontSize.bodyLarge }}>
-                  Hinzufügen
-                </Text>
-              </Pressable>
-            </Link>
+            <Pressable
+              accessibilityRole="button"
+              hitSlop={12}
+              onPress={() => router.push('/schrank/neu')}>
+              <Text style={{ color: colors.accent, fontSize: fontSize.bodyLarge }}>Hinzufügen</Text>
+            </Pressable>
           ),
         }}
       />
@@ -36,32 +35,32 @@ export default function SchrankScreen() {
           <Placeholder text="Noch leer. Leg über „Hinzufügen“ dein erstes Teil an." />
         }
         renderItem={({ item }) => (
-          <Link href={`/schrank/${item.id}`} asChild>
-            <Pressable
-              style={[
-                styles.card,
-                { backgroundColor: colors.surfaceRaised, borderColor: colors.border },
-              ]}>
-              {/* Bilder folgen in C1; bis dahin steht die Hauptfarbe für das Teil. */}
-              <View style={[styles.swatch, { backgroundColor: item.farbeHex }]}>
-                {item.waeschestatus !== 'sauber' ? (
-                  <Text
-                    style={[
-                      styles.badge,
-                      { backgroundColor: colors.surfaceRaised, color: colors.warning },
-                    ]}>
-                    {WAESCHESTATUS_NAMEN[item.waeschestatus]}
-                  </Text>
-                ) : null}
-              </View>
-              <Text style={[styles.name, { color: colors.text }]} numberOfLines={1}>
-                {item.name}
-              </Text>
-              <Text style={{ color: colors.textMuted, fontSize: fontSize.caption }}>
-                {KATEGORIE_NAMEN[item.kategorie]} · {item.farbeName}
-              </Text>
-            </Pressable>
-          </Link>
+          <Pressable
+            accessibilityRole="link"
+            onPress={() => router.push(`/schrank/${item.id}`)}
+            style={[
+              styles.card,
+              { backgroundColor: colors.surfaceRaised, borderColor: colors.border },
+            ]}>
+            {/* Bilder folgen in C1; bis dahin steht die Hauptfarbe für das Teil. */}
+            <View style={[styles.swatch, { backgroundColor: item.farbeHex }]}>
+              {item.waeschestatus !== 'sauber' ? (
+                <Text
+                  style={[
+                    styles.badge,
+                    { backgroundColor: colors.surfaceRaised, color: colors.warning },
+                  ]}>
+                  {WAESCHESTATUS_NAMEN[item.waeschestatus]}
+                </Text>
+              ) : null}
+            </View>
+            <Text style={[styles.name, { color: colors.text }]} numberOfLines={1}>
+              {item.name}
+            </Text>
+            <Text style={{ color: colors.textMuted, fontSize: fontSize.caption }}>
+              {KATEGORIE_NAMEN[item.kategorie]} · {item.farbeName}
+            </Text>
+          </Pressable>
         )}
       />
     </View>
