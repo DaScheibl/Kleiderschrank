@@ -1,7 +1,7 @@
 import { Link, Stack } from 'expo-router';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { KATEGORIE_NAMEN } from '@/domain/modell/konstanten';
+import { KATEGORIE_NAMEN, WAESCHESTATUS_NAMEN } from '@/domain/modell/konstanten';
 import { useActiveGarments } from '@/hooks/use-garments';
 import { Placeholder } from '@/ui/components/screen';
 import { fontSize, fontWeight, radius, spacing } from '@/ui/theme/tokens';
@@ -36,20 +36,32 @@ export default function SchrankScreen() {
           <Placeholder text="Noch leer. Leg über „Hinzufügen“ dein erstes Teil an." />
         }
         renderItem={({ item }) => (
-          <View
-            style={[
-              styles.card,
-              { backgroundColor: colors.surfaceRaised, borderColor: colors.border },
-            ]}>
-            {/* Bilder folgen in C1; bis dahin steht die Hauptfarbe für das Teil. */}
-            <View style={[styles.swatch, { backgroundColor: item.farbeHex }]} />
-            <Text style={[styles.name, { color: colors.text }]} numberOfLines={1}>
-              {item.name}
-            </Text>
-            <Text style={{ color: colors.textMuted, fontSize: fontSize.caption }}>
-              {KATEGORIE_NAMEN[item.kategorie]} · {item.farbeName}
-            </Text>
-          </View>
+          <Link href={`/schrank/${item.id}`} asChild>
+            <Pressable
+              style={[
+                styles.card,
+                { backgroundColor: colors.surfaceRaised, borderColor: colors.border },
+              ]}>
+              {/* Bilder folgen in C1; bis dahin steht die Hauptfarbe für das Teil. */}
+              <View style={[styles.swatch, { backgroundColor: item.farbeHex }]}>
+                {item.waeschestatus !== 'sauber' ? (
+                  <Text
+                    style={[
+                      styles.badge,
+                      { backgroundColor: colors.surfaceRaised, color: colors.warning },
+                    ]}>
+                    {WAESCHESTATUS_NAMEN[item.waeschestatus]}
+                  </Text>
+                ) : null}
+              </View>
+              <Text style={[styles.name, { color: colors.text }]} numberOfLines={1}>
+                {item.name}
+              </Text>
+              <Text style={{ color: colors.textMuted, fontSize: fontSize.caption }}>
+                {KATEGORIE_NAMEN[item.kategorie]} · {item.farbeName}
+              </Text>
+            </Pressable>
+          </Link>
         )}
       />
     </View>
@@ -68,6 +80,15 @@ const styles = StyleSheet.create({
     padding: spacing.sm,
     gap: spacing.xs,
   },
-  swatch: { aspectRatio: 1, borderRadius: radius.md },
+  swatch: { aspectRatio: 1, borderRadius: radius.md, padding: spacing.xs },
+  badge: {
+    alignSelf: 'flex-start',
+    fontSize: fontSize.caption,
+    fontWeight: fontWeight.semibold,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 2,
+    borderRadius: radius.pill,
+    overflow: 'hidden',
+  },
   name: { fontSize: fontSize.body, fontWeight: fontWeight.semibold },
 });

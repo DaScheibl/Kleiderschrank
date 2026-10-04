@@ -42,7 +42,11 @@ export default function TabLayout() {
       />
       <Tabs.Screen
         name="einstellungen"
-        options={{ title: 'Einstellungen', tabBarIcon: tabIcon('settings-outline') }}
+        options={{
+          title: 'Einstellungen',
+          headerShown: false,
+          tabBarIcon: tabIcon('settings-outline'),
+        }}
       />
     </Tabs>
   );

@@ -2,7 +2,7 @@ import { Stack } from 'expo-router';
 
 import { useTheme } from '@/ui/theme/use-theme';
 
-export default function SchrankLayout() {
+export default function EinstellungenLayout() {
   const { colors } = useTheme();
   return (
     <Stack
@@ -10,9 +10,8 @@ export default function SchrankLayout() {
         headerStyle: { backgroundColor: colors.surface },
         headerTintColor: colors.text,
       }}>
-      <Stack.Screen name="index" options={{ title: 'Schrank' }} />
-      <Stack.Screen name="neu" options={{ title: 'Neues Teil', presentation: 'modal' }} />
-      <Stack.Screen name="[id]" options={{ title: '' }} />
+      <Stack.Screen name="index" options={{ title: 'Einstellungen' }} />
+      <Stack.Screen name="waescheschwellen" options={{ title: 'Wäscheschwellen' }} />
     </Stack>
   );
 }
