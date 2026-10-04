@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import { Link } from 'expo-router';
+import { Link, type Href } from 'expo-router';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
 import { Placeholder, Screen } from '@/ui/components/screen';
@@ -10,19 +10,29 @@ export default function EinstellungenScreen() {
   const { colors } = useTheme();
   return (
     <Screen>
-      <Link href="/einstellungen/waescheschwellen" asChild>
-        <Pressable
-          style={[
-            styles.eintrag,
-            { backgroundColor: colors.surfaceRaised, borderColor: colors.border },
-          ]}>
-          <Text style={{ color: colors.text, fontSize: fontSize.bodyLarge }}>Wäscheschwellen</Text>
-          <Text style={{ color: colors.textMuted }}>›</Text>
-        </Pressable>
-      </Link>
-      <Placeholder text="Konto, Größen, Stile und Abo folgen in den Blöcken A3, D und F." />
-      <Placeholder text={`Version ${Constants.expoConfig?.version ?? '–'}`} />
+      <Eintrag href="/einstellungen/sync" label="Konto & Abgleich" />
+      <Eintrag href="/einstellungen/waescheschwellen" label="Wäscheschwellen" />
+      <Placeholder text="Größen, Stile und Abo folgen in den Blöcken D und F." />
+      <Text style={{ color: colors.textMuted, fontSize: fontSize.caption }}>
+        Version {Constants.expoConfig?.version ?? '–'}
+      </Text>
     </Screen>
+  );
+}
+
+function Eintrag({ href, label }: { href: Href; label: string }) {
+  const { colors } = useTheme();
+  return (
+    <Link href={href} asChild>
+      <Pressable
+        style={[
+          styles.eintrag,
+          { backgroundColor: colors.surfaceRaised, borderColor: colors.border },
+        ]}>
+        <Text style={{ color: colors.text, fontSize: fontSize.bodyLarge }}>{label}</Text>
+        <Text style={{ color: colors.textMuted }}>›</Text>
+      </Pressable>
+    </Link>
   );
 }
 
