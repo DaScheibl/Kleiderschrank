@@ -422,3 +422,7 @@ verify_jwt = true
 [functions.konto-loeschen]
 verify_jwt = true
 
+
+[functions.wetter]
+verify_jwt = true
+
