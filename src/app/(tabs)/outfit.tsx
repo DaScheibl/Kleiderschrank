@@ -32,6 +32,7 @@ export default function OutfitScreen() {
 
   // "Nochmal durchsehen": dieselben Kandidaten in neuer Reihenfolge, Bewertungen werden überschrieben.
   const [runde, setRunde] = useState<{ reihenfolge: string[]; gewischt: Set<string> } | null>(null);
+  const [angezeigt, setAngezeigt] = useState<string | null>(null);
 
   const kandidaten = useMemo(() => ergebnis?.kandidaten ?? [], [ergebnis]);
   const offen = useMemo(() => {
@@ -89,6 +90,8 @@ export default function OutfitScreen() {
   function wischen(k: Kandidat, richtung: SwipeRichtung) {
     rateCandidate(k, richtung === 'rechts' ? 'gefaellt' : 'abgelehnt', datum, anlass);
     if (runde) setRunde({ ...runde, gewischt: new Set([...runde.gewischt, k.schluessel]) });
+    // Nächste Karte festhalten, damit eine später eintreffende KI-Sortierung sie nicht austauscht.
+    setAngezeigt(offen.find((o) => o.schluessel !== k.schluessel)?.schluessel ?? null);
   }
 
   function nehmen(k: Kandidat) {
@@ -102,7 +105,7 @@ export default function OutfitScreen() {
     }
   }
 
-  const aktuelle = offen[0];
+  const aktuelle = offen.find((k) => k.schluessel === angezeigt) ?? offen[0];
   if (aktuelle) {
     const position = kandidaten.length - offen.length + 1;
     return (

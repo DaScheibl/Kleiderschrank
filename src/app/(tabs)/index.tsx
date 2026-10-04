@@ -16,7 +16,7 @@ import { useTheme } from '@/ui/theme/use-theme';
 export default function HeuteScreen() {
   const { colors } = useTheme();
   const datum = useToday();
-  const { wetter, anlassAnzeige, ergebnis } = useDailyCandidates(datum);
+  const { wetter, anlassAnzeige, ergebnis, tipp } = useDailyCandidates(datum);
   const { wahl } = useDailyChoice(datum);
   const box = [styles.box, { backgroundColor: colors.surfaceRaised, borderColor: colors.border }];
 
@@ -36,6 +36,14 @@ export default function HeuteScreen() {
     <Screen>
       <WeatherCard wetter={wetter} />
       <OccasionCard anzeige={anlassAnzeige} />
+      {tipp ? (
+        <View style={box}>
+          <Text style={{ color: colors.text, fontSize: fontSize.body }}>
+            <Text style={{ fontWeight: fontWeight.semibold }}>Tipp: </Text>
+            {tipp}
+          </Text>
+        </View>
+      ) : null}
 
       {wahl ? (
         <View style={box}>

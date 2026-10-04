@@ -109,7 +109,7 @@ export function rateCandidate(
         kombinationsSchluessel: k.schluessel,
         titel: k.titel,
         begruendung: k.begruendung,
-        begruendungQuelle: 'regel',
+        begruendungQuelle: k.begruendungQuelle ?? 'regel',
         regelScore: Math.round(k.score),
       })
       .run();
