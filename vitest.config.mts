@@ -6,7 +6,7 @@ export default defineConfig({
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
   test: {
-    include: ['src/domain/**/*.test.ts'],
+    include: ['src/domain/**/*.test.ts', 'src/data/sync/**/*.test.ts'],
     environment: 'node',
   },
 });
