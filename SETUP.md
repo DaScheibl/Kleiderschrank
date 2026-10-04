@@ -269,6 +269,10 @@ Netzwerke** erlauben.
 
 ## Ab wann Expo Go nicht mehr reicht
 
+Ausnahme schon vorher: Der **Kalender** (Block A5) ist seit Expo SDK 57 nicht mehr in Expo Go
+enthalten. In Expo Go zeigt die App dafür einen Hinweis und nimmt deinen Alltagswert; alles
+andere funktioniert.
+
 Mit der Entscheidung E3 = natives Freistellen endet Expo Go mit **Block C2**. Ab dann
 braucht es einen **Development Build** über EAS. Für das iPhone setzt das das
 Apple-Developer-Programm voraus (99 $/Jahr); für Android nicht. Die genaue Anleitung

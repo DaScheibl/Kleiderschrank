@@ -41,6 +41,13 @@
         {
           "locationWhenInUsePermission": "Der ungefähre Standort (auf etwa 1 km gerundet) wird nur für die Wettervorhersage verwendet, damit die Kleidungsvorschläge zum Wetter passen."
         }
+      ],
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "Die App liest deine heutigen Termine, um passend formelle Kleidung vorzuschlagen. Titel und Orte bleiben auf dem Gerät.",
+          "remindersPermission": false
+        }
       ]
     ],
     "experiments": {
