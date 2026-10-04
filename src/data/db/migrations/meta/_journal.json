@@ -15,6 +15,13 @@
       "when": 1791110928009,
       "tag": "0001_datenmodell",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791111982335,
+      "tag": "0002_sync_meta",
+      "breakpoints": true
     }
   ]
 }

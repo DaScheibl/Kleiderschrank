@@ -173,6 +173,12 @@ export const stilprofil = sqliteTable('stilprofil', {
   ...profilSpalten,
 });
 
+/** Nur lokal: Konto, an das dieser Schrank gebunden ist, und Abrufstände je Tabelle. */
+export const syncMeta = sqliteTable('sync_meta', {
+  schluessel: text('schluessel').primaryKey(),
+  wert: text('wert'),
+});
+
 /** Genau eine Zeile mit dem Schlüssel 'standard'. Auf dem Server ist der Schlüssel benutzer_id. */
 export const einstellungen = sqliteTable('einstellungen', {
   schluessel: text('schluessel').primaryKey().default('standard'),

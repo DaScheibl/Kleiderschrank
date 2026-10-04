@@ -9,7 +9,8 @@ import {
 import type { Kleidungsstueck, Uuid, Waeschestatus } from '@/domain/modell/typen';
 import { setzeWaeschestatus } from '@/domain/waesche/waescheregel';
 
-import { db } from '../db/client';
+import { notifyLocalChange } from '../changes';
+import { getDb } from '../db/client';
 import { kleidungsstueck, type KleidungsstueckZeile } from '../db/schema';
 
 export function toDomain(row: KleidungsstueckZeile): Kleidungsstueck {
@@ -20,14 +21,17 @@ export function toDomain(row: KleidungsstueckZeile): Kleidungsstueck {
 export async function createGarment(input: NeuesTeilEingabe): Promise<AnlegenErgebnis> {
   const result = neuesKleidungsstueck(input, randomUUID(), new Date().toISOString());
   if (result.ok) {
-    await db.insert(kleidungsstueck).values({ ...result.teil, syncOffen: true });
+    await getDb()
+      .insert(kleidungsstueck)
+      .values({ ...result.teil, syncOffen: true });
+    notifyLocalChange();
   }
   return result;
 }
 
 /** Abfrage für den Schrank: aktive, nicht gelöschte Teile, neueste zuerst. */
 export function activeGarmentsQuery() {
-  return db
+  return getDb()
     .select()
     .from(kleidungsstueck)
     .where(and(eq(kleidungsstueck.geloescht, false), eq(kleidungsstueck.status, 'aktiv')))
@@ -35,11 +39,11 @@ export function activeGarmentsQuery() {
 }
 
 export function garmentQuery(id: Uuid) {
-  return db.select().from(kleidungsstueck).where(eq(kleidungsstueck.id, id)).limit(1);
+  return getDb().select().from(kleidungsstueck).where(eq(kleidungsstueck.id, id)).limit(1);
 }
 
 export function garmentsByLaundryStatusQuery(status: Waeschestatus) {
-  return db
+  return getDb()
     .select()
     .from(kleidungsstueck)
     .where(
@@ -56,7 +60,7 @@ export function garmentsByLaundryStatusQuery(status: Waeschestatus) {
 export function setLaundryStatus(ids: readonly Uuid[], ziel: Waeschestatus): void {
   if (ids.length === 0) return;
   const jetzt = new Date().toISOString();
-  db.transaction((tx) => {
+  getDb().transaction((tx) => {
     const rows = tx
       .select()
       .from(kleidungsstueck)
@@ -70,4 +74,5 @@ export function setLaundryStatus(ids: readonly Uuid[], ziel: Waeschestatus): voi
         .run();
     }
   });
+  notifyLocalChange();
 }

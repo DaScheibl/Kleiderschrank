@@ -1,0 +1,1015 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "d041c35a-5600-45d3-9650-47c1435c2fd3",
+  "prevId": "99b06523-d964-40b4-81c7-6e4a9ea4ad5e",
+  "tables": {
+    "einstellungen": {
+      "name": "einstellungen",
+      "columns": {
+        "schluessel": {
+          "name": "schluessel",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'standard'"
+        },
+        "alltags_formalitaet": {
+          "name": "alltags_formalitaet",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "aussortier_nach_monaten": {
+          "name": "aussortier_nach_monaten",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 9
+        },
+        "abendvorschau_uhrzeit": {
+          "name": "abendvorschau_uhrzeit",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ort_manuell": {
+          "name": "ort_manuell",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "rundtour_abgeschlossen": {
+          "name": "rundtour_abgeschlossen",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "angelegt_am": {
+          "name": "angelegt_am",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "zuletzt_geaendert": {
+          "name": "zuletzt_geaendert",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "geloescht": {
+          "name": "geloescht",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "sync_offen": {
+          "name": "sync_offen",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "groessenprofil": {
+      "name": "groessenprofil",
+      "columns": {
+        "bereich": {
+          "name": "bereich",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "system": {
+          "name": "system",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "werte": {
+          "name": "werte",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'[]'"
+        },
+        "angelegt_am": {
+          "name": "angelegt_am",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "zuletzt_geaendert": {
+          "name": "zuletzt_geaendert",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "geloescht": {
+          "name": "geloescht",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "sync_offen": {
+          "name": "sync_offen",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "kleidungsstueck": {
+      "name": "kleidungsstueck",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "angelegt_am": {
+          "name": "angelegt_am",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "zuletzt_geaendert": {
+          "name": "zuletzt_geaendert",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "geloescht": {
+          "name": "geloescht",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "sync_offen": {
+          "name": "sync_offen",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "kategorie": {
+          "name": "kategorie",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "unterart": {
+          "name": "unterart",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "farbe_hex": {
+          "name": "farbe_hex",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "farbe_name": {
+          "name": "farbe_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nebenfarbe_hex": {
+          "name": "nebenfarbe_hex",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "nebenfarbe_name": {
+          "name": "nebenfarbe_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "muster": {
+          "name": "muster",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'uni'"
+        },
+        "material": {
+          "name": "material",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "waermegrad": {
+          "name": "waermegrad",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 1
+        },
+        "formalitaet": {
+          "name": "formalitaet",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "regentauglich": {
+          "name": "regentauglich",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "stil_tags": {
+          "name": "stil_tags",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'[]'"
+        },
+        "groesse_text": {
+          "name": "groesse_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "groesse_system": {
+          "name": "groesse_system",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "groesse_normiert": {
+          "name": "groesse_normiert",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "groesse_quelle": {
+          "name": "groesse_quelle",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "metallton": {
+          "name": "metallton",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "waeschestatus": {
+          "name": "waeschestatus",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'sauber'"
+        },
+        "gewaschen_am": {
+          "name": "gewaschen_am",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "waescheschwelle_eigen": {
+          "name": "waescheschwelle_eigen",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "marke": {
+          "name": "marke",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "kaufpreis_cent": {
+          "name": "kaufpreis_cent",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "kaufdatum": {
+          "name": "kaufdatum",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'aktiv'"
+        },
+        "status_seit": {
+          "name": "status_seit",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "verkaufspreis_cent": {
+          "name": "verkaufspreis_cent",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "zustand": {
+          "name": "zustand",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "aussortier_frage_nicht_vor": {
+          "name": "aussortier_frage_nicht_vor",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "bild_pfad": {
+          "name": "bild_pfad",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "bild_pruefsumme": {
+          "name": "bild_pruefsumme",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "kleidungsstueck_kategorie_idx": {
+          "name": "kleidungsstueck_kategorie_idx",
+          "columns": [
+            "kategorie",
+            "status"
+          ],
+          "isUnique": false
+        },
+        "kleidungsstueck_sync_idx": {
+          "name": "kleidungsstueck_sync_idx",
+          "columns": [
+            "sync_offen"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "outfit": {
+      "name": "outfit",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "angelegt_am": {
+          "name": "angelegt_am",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "zuletzt_geaendert": {
+          "name": "zuletzt_geaendert",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "geloescht": {
+          "name": "geloescht",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "sync_offen": {
+          "name": "sync_offen",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        },
+        "datum": {
+          "name": "datum",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "anlass": {
+          "name": "anlass",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "anlass_formalitaet": {
+          "name": "anlass_formalitaet",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "bewertung": {
+          "name": "bewertung",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'offen'"
+        },
+        "ist_tageswahl": {
+          "name": "ist_tageswahl",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "getragen": {
+          "name": "getragen",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "kombinations_schluessel": {
+          "name": "kombinations_schluessel",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "titel": {
+          "name": "titel",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "begruendung": {
+          "name": "begruendung",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "begruendung_quelle": {
+          "name": "begruendung_quelle",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "regel_score": {
+          "name": "regel_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "stil_heute": {
+          "name": "stil_heute",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "outfit_datum_idx": {
+          "name": "outfit_datum_idx",
+          "columns": [
+            "datum"
+          ],
+          "isUnique": false
+        },
+        "outfit_sync_idx": {
+          "name": "outfit_sync_idx",
+          "columns": [
+            "sync_offen"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "outfit_teil": {
+      "name": "outfit_teil",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "angelegt_am": {
+          "name": "angelegt_am",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "zuletzt_geaendert": {
+          "name": "zuletzt_geaendert",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "geloescht": {
+          "name": "geloescht",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "sync_offen": {
+          "name": "sync_offen",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        },
+        "outfit_id": {
+          "name": "outfit_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "teil_id": {
+          "name": "teil_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "rolle": {
+          "name": "rolle",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "outfit_teil_eindeutig": {
+          "name": "outfit_teil_eindeutig",
+          "columns": [
+            "outfit_id",
+            "teil_id"
+          ],
+          "isUnique": true
+        },
+        "outfit_teil_teil_idx": {
+          "name": "outfit_teil_teil_idx",
+          "columns": [
+            "teil_id"
+          ],
+          "isUnique": false
+        },
+        "outfit_teil_sync_idx": {
+          "name": "outfit_teil_sync_idx",
+          "columns": [
+            "sync_offen"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "outfit_teil_outfit_id_outfit_id_fk": {
+          "name": "outfit_teil_outfit_id_outfit_id_fk",
+          "tableFrom": "outfit_teil",
+          "tableTo": "outfit",
+          "columnsFrom": [
+            "outfit_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "outfit_teil_teil_id_kleidungsstueck_id_fk": {
+          "name": "outfit_teil_teil_id_kleidungsstueck_id_fk",
+          "tableFrom": "outfit_teil",
+          "tableTo": "kleidungsstueck",
+          "columnsFrom": [
+            "teil_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "stilprofil": {
+      "name": "stilprofil",
+      "columns": {
+        "stil": {
+          "name": "stil",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "gewichtung": {
+          "name": "gewichtung",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "angelegt_am": {
+          "name": "angelegt_am",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "zuletzt_geaendert": {
+          "name": "zuletzt_geaendert",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "geloescht": {
+          "name": "geloescht",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "sync_offen": {
+          "name": "sync_offen",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "sync_meta": {
+      "name": "sync_meta",
+      "columns": {
+        "schluessel": {
+          "name": "schluessel",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "wert": {
+          "name": "wert",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "teil_lokal": {
+      "name": "teil_lokal",
+      "columns": {
+        "teil_id": {
+          "name": "teil_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "bild_lokal_uri": {
+          "name": "bild_lokal_uri",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "original_lokal_uri": {
+          "name": "original_lokal_uri",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "teil_lokal_teil_id_kleidungsstueck_id_fk": {
+          "name": "teil_lokal_teil_id_kleidungsstueck_id_fk",
+          "tableFrom": "teil_lokal",
+          "tableTo": "kleidungsstueck",
+          "columnsFrom": [
+            "teil_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "trage_eintrag": {
+      "name": "trage_eintrag",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "angelegt_am": {
+          "name": "angelegt_am",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "zuletzt_geaendert": {
+          "name": "zuletzt_geaendert",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "geloescht": {
+          "name": "geloescht",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "sync_offen": {
+          "name": "sync_offen",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        },
+        "teil_id": {
+          "name": "teil_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "outfit_id": {
+          "name": "outfit_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "datum": {
+          "name": "datum",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "trage_eintrag_eindeutig": {
+          "name": "trage_eintrag_eindeutig",
+          "columns": [
+            "teil_id",
+            "datum"
+          ],
+          "isUnique": true
+        },
+        "trage_eintrag_datum_idx": {
+          "name": "trage_eintrag_datum_idx",
+          "columns": [
+            "datum"
+          ],
+          "isUnique": false
+        },
+        "trage_eintrag_sync_idx": {
+          "name": "trage_eintrag_sync_idx",
+          "columns": [
+            "sync_offen"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "trage_eintrag_teil_id_kleidungsstueck_id_fk": {
+          "name": "trage_eintrag_teil_id_kleidungsstueck_id_fk",
+          "tableFrom": "trage_eintrag",
+          "tableTo": "kleidungsstueck",
+          "columnsFrom": [
+            "teil_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "trage_eintrag_outfit_id_outfit_id_fk": {
+          "name": "trage_eintrag_outfit_id_outfit_id_fk",
+          "tableFrom": "trage_eintrag",
+          "tableTo": "outfit",
+          "columnsFrom": [
+            "outfit_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "waescheschwelle": {
+      "name": "waescheschwelle",
+      "columns": {
+        "kategorie": {
+          "name": "kategorie",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "schwelle": {
+          "name": "schwelle",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "angelegt_am": {
+          "name": "angelegt_am",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "zuletzt_geaendert": {
+          "name": "zuletzt_geaendert",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "geloescht": {
+          "name": "geloescht",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "sync_offen": {
+          "name": "sync_offen",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

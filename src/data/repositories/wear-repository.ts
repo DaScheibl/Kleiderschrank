@@ -4,7 +4,8 @@ import { randomUUID } from 'expo-crypto';
 import type { LokalesDatum, TrageEintrag, Uuid } from '@/domain/modell/typen';
 import { planeTragen, type TragenPlan } from '@/domain/waesche/waescheregel';
 
-import { db } from '../db/client';
+import { notifyLocalChange } from '../changes';
+import { getDb } from '../db/client';
 import { kleidungsstueck, trageEintrag } from '../db/schema';
 import { toDomain } from './garment-repository';
 import { readThresholds } from './profile-repository';
@@ -15,7 +16,7 @@ export function toWearDomain(row: typeof trageEintrag.$inferSelect): TrageEintra
 }
 
 export function wearsForGarmentQuery(teilId: Uuid) {
-  return db.select().from(trageEintrag).where(eq(trageEintrag.teilId, teilId));
+  return getDb().select().from(trageEintrag).where(eq(trageEintrag.teilId, teilId));
 }
 
 /**
@@ -27,7 +28,7 @@ export function markWorn(
   datum: LokalesDatum,
   outfitId: Uuid | null = null,
 ): TragenPlan | null {
-  return db.transaction((tx) => {
+  const plan = getDb().transaction((tx) => {
     const row = tx.select().from(kleidungsstueck).where(eq(kleidungsstueck.id, teilId)).get();
     if (!row) return null;
     const teil = toDomain(row);
@@ -66,4 +67,6 @@ export function markWorn(
     }
     return plan;
   });
+  if (plan && !plan.schonGetragen) notifyLocalChange();
+  return plan;
 }
