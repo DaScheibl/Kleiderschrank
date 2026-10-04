@@ -117,6 +117,18 @@ export function takeOverForAccount(kontoId: string): void {
   bindAccount(kontoId);
 }
 
+/** Leer heißt: keine Teile, Outfits oder Trageeinträge. Einstellungen allein zählen nicht. */
+export function isWardrobeEmpty(): boolean {
+  return SYNC_TABLES.filter((t) => t.paged).every(
+    (t) =>
+      getDb()
+        .select()
+        .from(t.table as never)
+        .limit(1)
+        .all().length === 0,
+  );
+}
+
 export function pendingCount(): number {
   let n = 0;
   for (const t of SYNC_TABLES) n += drizzleLocalStore.pending(t).length;

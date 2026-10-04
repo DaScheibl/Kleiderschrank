@@ -1,5 +1,5 @@
 import { drizzle } from 'drizzle-orm/expo-sqlite';
-import { openDatabaseSync, type SQLiteDatabase } from 'expo-sqlite';
+import { deleteDatabaseSync, openDatabaseSync, type SQLiteDatabase } from 'expo-sqlite';
 import Storage from 'expo-sqlite/kv-store';
 
 import * as schema from './schema';
@@ -60,6 +60,21 @@ export function switchDatabase(datei: string): void {
   Storage.setItemSync(ZEIGER, datei);
   aktiv = oeffnen(datei);
   listeners.forEach((l) => l());
+}
+
+/** Name für einen neuen, leeren Schrank (nach Abmelden oder Kontolöschung). */
+export function freshDatabaseFile(): string {
+  return `schrank-${Date.now()}.db`;
+}
+
+/**
+ * Löscht eine Schrank-Datei endgültig. Nur für die ausdrücklich bestätigte Kontolöschung;
+ * Abmelden, Abbestellen und Fehler rufen das nie auf.
+ */
+export function deleteDatabaseFile(datei: string, kontoId: string): void {
+  if (aktiv?.datei === datei) throw new Error('Die aktive Datei kann nicht gelöscht werden');
+  deleteDatabaseSync(datei);
+  Storage.removeItemSync(`datei:${kontoId}`);
 }
 
 export function subscribeDatabase(listener: () => void): () => void {

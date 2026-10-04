@@ -12,6 +12,7 @@ import {
   bindAccount,
   boundAccount,
   drizzleLocalStore,
+  isWardrobeEmpty,
   takeOverForAccount,
 } from '@/data/sync/local-store';
 import { SYNC_TABLES } from '@/data/sync/tables';
@@ -32,13 +33,16 @@ export interface SyncState {
   status: SyncStatus;
   kontoId: string | null;
   istAnonym: boolean;
+  email: string | null;
 }
 
-let state: SyncState = {
+const ANFANG: SyncState = {
   status: supabase ? { art: 'offline' } : { art: 'nicht_eingerichtet' },
   kontoId: null,
   istAnonym: true,
+  email: null,
 };
+let state: SyncState = ANFANG;
 let zuletztErfolgreich: string | null = null;
 const listeners = new Set<() => void>();
 
@@ -49,6 +53,12 @@ function setState(teil: Partial<SyncState>) {
 
 export function getSyncState(): SyncState {
   return state;
+}
+
+/** Nach Abmelden oder Kontolöschung: Anzeige zurücksetzen, bis die nächste Sitzung steht. */
+export function resetSyncState(): void {
+  zuletztErfolgreich = null;
+  setState(ANFANG);
 }
 
 export function subscribeSync(listener: () => void): () => void {
@@ -84,9 +94,14 @@ async function einLauf(): Promise<void> {
 
   const user = await ensureSession();
   if (!user) return setState({ status: { art: 'offline' } });
-  setState({ kontoId: user.id, istAnonym: user.is_anonymous ?? false });
+  setState({ kontoId: user.id, istAnonym: user.is_anonymous ?? false, email: user.email ?? null });
 
   const abgleich = kontoAbgleich(boundAccount(), user.id);
+  if (abgleich.art === 'anderes_konto' && isWardrobeEmpty()) {
+    // Ein leerer Schrank braucht keine Rückfrage: direkt zum Schrank des Kontos wechseln.
+    switchDatabase(databaseFileForAccount(user.id));
+    return setState({ status: { art: 'laeuft' } });
+  }
   if (abgleich.art === 'anderes_konto') {
     // Nichts anfassen, bis der Nutzer entschieden hat.
     return setState({
