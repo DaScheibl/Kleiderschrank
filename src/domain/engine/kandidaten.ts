@@ -68,6 +68,8 @@ export interface Kandidat {
   anteile: Record<Kriterium, number>;
   titel: string;
   begruendung: string;
+  /** Woher Titel und Begründung stammen; ohne Angabe aus den Textbausteinen */
+  begruendungQuelle?: 'regel' | 'ki';
 }
 
 export interface Fehlend {
