@@ -162,7 +162,8 @@ Lauf macht nichts kaputt.
 | 6           | `006_ki.sql`              | KI-Tageszähler, Kostenprotokoll, Cache              |
 | 7           | `007_abo.sql`             | Abo-Status                                          |
 | 8           | `008_storage.sql`         | privater Bucket `kleidung` mit Policies             |
-| 9           | `099_pruefung.sql`        | **Sicherheitsprüfung**                              |
+| 9           | `009_wetter.sql`          | Zwischenspeicher für den Wetter-Proxy               |
+| 10          | `099_pruefung.sql`        | **Sicherheitsprüfung**                              |
 
 Beim letzten Skript muss als Ergebnis die Zeile **„Prüfung bestanden …“** erscheinen.
 Erscheint stattdessen ein Fehler mit „BLOCKER“, ist eine Tabelle ungeschützt – dann bitte
@@ -198,7 +199,7 @@ npx supabase link --project-ref abcdefgh
 3. Beide Funktionen ausrollen:
 
 ```bash
-npx supabase functions deploy konto-loeschen ki-sortierung --use-api
+npx supabase functions deploy konto-loeschen ki-sortierung wetter --use-api
 ```
 
 4. Kontrolle im Dashboard unter **Edge Functions**: beide Funktionen sind gelistet.

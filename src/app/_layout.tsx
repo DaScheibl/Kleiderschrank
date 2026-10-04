@@ -57,7 +57,19 @@ function Schrank({ datei }: { datei: string }) {
         },
       }}>
       <StatusBar style={isDark ? 'light' : 'dark'} />
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="ort"
+          options={{
+            presentation: 'modal',
+            headerShown: true,
+            title: 'Ort für das Wetter',
+            headerStyle: { backgroundColor: colors.surface },
+            headerTintColor: colors.text,
+          }}
+        />
+      </Stack>
       <AccountConflictPrompt />
     </ThemeProvider>
   );

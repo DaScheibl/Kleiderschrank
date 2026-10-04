@@ -1,9 +1,13 @@
+import { useWeather } from '@/hooks/use-weather';
 import { Placeholder, Screen } from '@/ui/components/screen';
+import { WeatherCard } from '@/ui/components/weather-card';
 
 export default function HeuteScreen() {
+  const wetter = useWeather();
   return (
     <Screen>
-      <Placeholder text="Hier stehen später Wetter, Termin und deine Tageswahl (Block A4, A5, B2)." />
+      <WeatherCard wetter={wetter} />
+      <Placeholder text="Termin und Tageswahl folgen in den Blöcken A5 und B2." />
     </Screen>
   );
 }
